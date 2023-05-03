@@ -1,0 +1,5 @@
+min_cluster_size: 5
+max_cluster_size: 20000
+cluster_threshold: 0.35
+use_gpu: false
+build_multiple_thres: false

@@ -1,0 +1,4 @@
+is_downsample: true
+leaf_size_x: 0.2
+leaf_size_y: 0.2
+leaf_size_z: 0.2

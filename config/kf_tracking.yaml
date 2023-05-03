@@ -1,0 +1,14 @@
+Tracking:
+  para_alg_gate_x: 2.
+  para_alg_gate_y: 2.
+  para_alg_merge_x: 2.
+  para_alg_merge_x: 2.
+  para_alg_length_sub: 1.6
+  para_alg_width_sub: 0.8
+  para_alg_height_sub: 0.7
+  para_alg_mn_detele: 2
+  para_alg_heading_vel_limit: 4.
+  density: 0.1
+  max_speed: 40.0
+  track_show_threshold: 3
+  para_alg_iou_samll_threshold: 0.4
