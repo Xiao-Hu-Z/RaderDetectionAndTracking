@@ -9,7 +9,7 @@ void readBenchmarkData(vector<Point>& points)
 {
     // load point cloud
     FILE *stream;
-    stream = fopen ("benchmark_hepta.dat","ra");
+    stream = fopen ("../benchmark_hepta.dat","ra");
 
     unsigned int minpts, num_points, cluster, i = 0;
     double epsilon;
