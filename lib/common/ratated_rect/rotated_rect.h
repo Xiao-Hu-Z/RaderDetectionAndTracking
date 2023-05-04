@@ -1,9 +1,3 @@
-/*
- * @Author: zhao_xiaohu
- * @Date: 2022-09-06 09:12:11
- * @Last Modified by: zhao_xiaohu
- * @Last Modified time: 2022-09-09 03:21:09
- */
 #pragma once
 
 #include <vector>
