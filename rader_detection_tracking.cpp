@@ -152,7 +152,7 @@ int main(int argc, char **argv) {
 // 		}
 	
 	Point *p = (Point *)calloc(points_size, sizeof(Point));
-	vector<Point> vec_points;
+	std::vector<Point> vec_points;
 	int i=0;
 	while(i< points_size){
 		p[i].x = data_ptr[7 * i + 0];
