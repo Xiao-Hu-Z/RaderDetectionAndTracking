@@ -1,11 +1,5 @@
-/*
- * @Author: zhao_xiaohu
- * @Date: 2022-09-06 09:12:17
- * @Last Modified by:   zhao_xiaohu
- * @Last Modified time: 2022-09-08 09:12:17
- */
-#include "common/rotated_rect.h"
-#include "common/out_lidar_data_type.h"
+#include "rotated_rect.h"
+
 
 
 template <typename _Tp> inline Point_<_Tp>::Point_() : x(0), y(0) {}
