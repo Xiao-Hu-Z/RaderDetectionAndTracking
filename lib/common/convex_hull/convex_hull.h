@@ -1,9 +1,4 @@
-/*
- * @Author: zhao_xiaohu
- * @Date: 2022-08-20 03:06:25
- * @Last Modified by:   zhao_xiaohu
- * @Last Modified time: 2022-08-20 03:06:25
- */
+
 #pragma once
 
 #include <algorithm>
@@ -13,11 +8,6 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
-#include "common/common.h"
-#include "common/out_lidar_data_type.h"
-
-namespace leap {
-namespace lidar {
 
 constexpr double MathEpsilon = 1e-9;
 
@@ -33,5 +23,3 @@ class ConvexHull {
     bool OldComputeConvexHull(std::vector<Eigen::Vector2d> &in_points,
                               std::vector<Eigen::Vector2d> &hull);
 };
-} // namespace lidar
-} // namespace leap
