@@ -1,13 +1,4 @@
-/*
- * @Author: zhao_xiaohu
- * @Date: 2022-08-20 03:06:29
- * @Last Modified by:   zhao_xiaohu
- * @Last Modified time: 2022-08-20 03:06:29
- */
 #include "common/convex_hull.h"
-
-namespace leap {
-namespace lidar {
 
 constexpr double kMathEpsilon = 1e-12;
 
@@ -71,5 +62,3 @@ bool ConvexHull::ComputeConvexHull(std::vector<Eigen::Vector2d> &in,
     }
     return true;
 }
-} // namespace lidar
-} // namespace leap
