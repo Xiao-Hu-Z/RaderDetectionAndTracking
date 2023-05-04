@@ -5,19 +5,10 @@
 
 #include <ros/ros.h>
 #include <pcl/common/io.h>
+#include <lib/cluster/dbscan/dbscan.h>
 
-
-void CloudToArray(const pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_ptr,
-                  float *out_points_array, const float normalizing_factor) {
-    for (size_t i = 0; i < cloud_ptr->size(); i++) {
-        pcl::PointXYZI point = cloud_ptr->at(i);
-        out_points_array[i * 4 + 0] = point.x;
-        out_points_array[i * 4 + 1] = point.y;
-        out_points_array[i * 4 + 2] = point.z;
-        out_points_array[i * 4 + 3] = point.intensity / normalizing_factor;
-    }
-}
-
+#define MINIMUM_POINTS 4
+#define EPSILON (0.75*0.75)
 
 int loadData(const char *file, void **data, unsigned int *length) {
     std::fstream dataFile(file, std::ifstream::in);
@@ -82,6 +73,19 @@ void readBinFile(std::string &filename, void *&bufPtr, int &pointNum,
     std::cout << "[INFO] pointNum : " << pointNum << std::endl;
 }
 
+void printResults(std::vector<Point>&points, int num_points){
+	int i=0;
+	printf("Number of points: %u\n" 
+	       “x   y    z    cluster_id\n"
+	       "------------------------\n",
+	       num_points);
+	while(i < num_points)
+	{
+		printf("%5.21f %5.21f %5.21f: %d\n", points[i].x, points[i].y, points[i].z, points[i].clusterID);
+		i++;
+	}
+    
+}
 
 int main(int argc, char **argv) {
 	std::ifstream in_file("../config/test.txt");
@@ -135,17 +139,35 @@ int main(int argc, char **argv) {
         size_t points_size = length / sizeof(float) / 7;
 
 		std::cout << "rader point size : " << points_size << std::endl;
-		pcl::PointCloud<pcl::PointXYZ>::Ptr in_cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
+// 		pcl::PointCloud<pcl::PointXYZ>::Ptr in_cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
 		float * data_ptr = static_cast<float *>(data);
-		for(int i=0; i< points_size ;i++){
-            pcl::PointXYZ p;
-            p.x = data_ptr[7*i+0];
-            p.y = data_ptr[7*i+1];
-            p.z = data_ptr[7*i+2];	
-			in_cloud_ptr->push_back(p);
+// 		for(int i=0; i< points_size ;i++){
+//             pcl::PointXYZ p;
+//             p.x = data_ptr[7*i+0];
+//             p.y = data_ptr[7*i+1];
+//             p.z = data_ptr[7*i+2];	
+// 			in_cloud_ptr->push_back(p);
 
-            printf("%f %f %f %f %f %f %f \n",data_ptr[7*i+0],data_ptr[7*i+1],data_ptr[7*i+2],data_ptr[7*i+3],data_ptr[7*i+4],data_ptr[7*i+5],data_ptr[7*i+6]);
-		}
+//             printf("%f %f %f %f %f %f %f \n",data_ptr[7*i+0],data_ptr[7*i+1],data_ptr[7*i+2],data_ptr[7*i+3],data_ptr[7*i+4],data_ptr[7*i+5],data_ptr[7*i+6]);
+// 		}
+	
+	Point *p = (Point *)calloc(points_size, sizeof(Point));
+	vector<Point> vec_points;
+	int i=0;
+	while(i< points_size){
+		p[i].x = data_ptr[7 * i + 0];
+		p[i].y = data_ptr[7 * i + 1];
+		p[i].z = data_ptr[7 * i + 2];
+		p[i].clusterID = UNCLASSIFIED;
+		vec_points.push_back(p[i]);
+		i++;
+	}
+	
+	free(p);
+	
+	DBSCAN ds(MINIMUM_POINTS, EPSILON, vec_points);
+	
+	
 
     in_file.close();
 
